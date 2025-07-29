@@ -17,50 +17,16 @@ type FeedItemType =
   | { type: "missions"; data: Mission[] };
 
 export const FeedList: React.FC = () => {
-  const { posts, feedLoading, feedError, hasNextPage, loadFeed, loadMoreFeed } =
-    useApplauseStore();
-
-  const missions = useMemo<Mission[]>(
-    () => [
-      {
-        id: "1",
-        title: "Missão Ativação de PDV",
-        points: 455,
-        completedBy: 16,
-        completedDate: "8 de novembro",
-        image:
-          "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-      },
-      {
-        id: "2",
-        title: "Missão Excelência no Atendimento",
-        points: 320,
-        completedBy: 23,
-        completedDate: "10 de novembro",
-        image:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
-      },
-      {
-        id: "3",
-        title: "Missão Ativação de PDV",
-        points: 455,
-        completedBy: 16,
-        completedDate: "8 de novembro",
-        image:
-          "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-      },
-      {
-        id: "4",
-        title: "Missão Excelência no Atendimento",
-        points: 320,
-        completedBy: 23,
-        completedDate: "10 de novembro",
-        image:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
-      },
-    ],
-    []
-  );
+  const {
+    posts,
+    feedLoading,
+    feedError,
+    hasNextPage,
+    loadFeed,
+    loadMoreFeed,
+    missions,
+    loadMissions,
+  } = useApplauseStore();
 
   const feedData = useMemo<FeedItemType[]>(() => {
     const items: FeedItemType[] = [];
@@ -70,7 +36,7 @@ export const FeedList: React.FC = () => {
       items.push({ type: "post", data: post });
     });
 
-    if (posts.length > 0) {
+    if (posts.length > 0 && missions.length > 0) {
       items.push({ type: "missions", data: missions });
     }
 
@@ -86,7 +52,10 @@ export const FeedList: React.FC = () => {
     if (posts.length === 0) {
       loadFeed(true);
     }
-  }, [posts.length, loadFeed]);
+    if (missions.length === 0) {
+      loadMissions();
+    }
+  }, [posts.length, missions.length, loadFeed, loadMissions]);
 
   const handleRefresh = useCallback(() => {
     loadFeed(true);

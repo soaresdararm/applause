@@ -1,3 +1,4 @@
+import { Avatar } from "@/src/components/ui/Avatar";
 import { Mission } from "@/src/types";
 import React from "react";
 import {
@@ -16,14 +17,12 @@ interface MissionCarouselProps {
 export const MissionCarousel: React.FC<MissionCarouselProps> = ({
   missions,
 }) => {
-  // Usar a primeira missão para o conteúdo fixo
   const firstMission = missions[0];
 
   if (!firstMission) return null;
 
   return (
     <View style={styles.container}>
-      {/* Header fixo */}
       <View style={styles.missionTopRow}>
         <View style={styles.pointsBadge}>
           <Text style={styles.pointsText}>+ {firstMission.points}</Text>
@@ -39,7 +38,6 @@ export const MissionCarousel: React.FC<MissionCarouselProps> = ({
         </View>
       </View>
 
-      {/* Carrossel só das imagens */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -54,6 +52,24 @@ export const MissionCarousel: React.FC<MissionCarouselProps> = ({
               source={{ uri: mission.image }}
               style={styles.missionImage}
             />
+            {mission.post && (
+              <View style={styles.postContent}>
+                <View style={styles.postHeader}>
+                  <Avatar uri={mission.post.author.avatar} size={32} />
+                  <View style={styles.postInfo}>
+                    <Text style={styles.authorName}>
+                      {mission.post.author.name}
+                    </Text>
+                    <Text style={styles.timeAgo}>{mission.post.timeAgo}</Text>
+                  </View>
+                </View>
+                <Text style={styles.postAction}>{mission.post.action}</Text>
+                <View style={styles.postActions}>
+                  <Text style={styles.reactionsText}>👏 3</Text>
+                  <Text style={styles.commentsText}>💬 3</Text>
+                </View>
+              </View>
+            )}
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -113,10 +129,61 @@ const styles = StyleSheet.create({
     width: 280,
     borderRadius: 12,
     overflow: "hidden",
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F2F2F7",
   },
   missionImage: {
     width: "100%",
-    height: 160,
+    height: 200,
     resizeMode: "cover",
+    borderRadius: 12,
+  },
+  postContent: {
+    padding: 16,
+  },
+  postHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  postInfo: {
+    marginLeft: 8,
+    flex: 1,
+  },
+  authorName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#000000",
+  },
+  timeAgo: {
+    fontSize: 12,
+    color: "#8E8E93",
+  },
+  postAction: {
+    fontSize: 13,
+    color: "#000000",
+    marginBottom: 12,
+    lineHeight: 16,
+  },
+  postActions: {
+    flexDirection: "row",
+    gap: 16,
+  },
+  reactionsText: {
+    fontSize: 12,
+    color: "#8E8E93",
+  },
+  commentsText: {
+    fontSize: 12,
+    color: "#8E8E93",
   },
 });

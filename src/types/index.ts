@@ -35,6 +35,11 @@ export interface Mission {
   completedBy: number;
   completedDate: string;
   image: string;
+  post?: {
+    author: User;
+    timeAgo: string;
+    action: string;
+  };
 }
 
 export interface PaginatedResponse<T> {
