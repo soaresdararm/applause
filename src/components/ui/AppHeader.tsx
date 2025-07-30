@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 16,
     zIndex: 1,
-    height: screenHeight,
+    height: 700,
   },
   headerContent: {
     flexDirection: "row",

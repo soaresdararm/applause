@@ -1,6 +1,5 @@
 import { AppHeader } from "@/src/components/ui/AppHeader";
 import { ApplauseModal } from "@/src/components/ui/ApplauseModal";
-import { BottomMissionCard } from "@/src/components/ui/BottomMissionCard";
 import { FloatingActionButton } from "@/src/components/ui/FloatingActionButton";
 import { FeedList } from "@/src/features/feed/components/FeedList";
 import { useApplauseStore } from "@/src/stores/applauseStore";
@@ -31,11 +30,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#003d7a" />
+      <StatusBar barStyle="light-content" backgroundColor="#1E2543" />
       <AppHeader />
       <FeedList />
 
-      <BottomMissionCard />
       <FloatingActionButton onPress={() => setShowApplauseModal(true)} />
 
       <ApplauseModal
@@ -52,6 +50,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "#1E2543",
   },
 });
